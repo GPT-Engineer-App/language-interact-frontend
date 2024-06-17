@@ -31,6 +31,8 @@ const fromSupabase = async (query) => {
 
 */
 
+// Example hook for models
+
 // Hooks for objects table
 
 export const useObjects = () => useQuery({
