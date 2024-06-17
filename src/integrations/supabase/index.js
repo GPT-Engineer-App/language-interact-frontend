@@ -19,56 +19,53 @@ const fromSupabase = async (query) => {
 
 /* supabase integration types
 
-### objects
+// EXAMPLE TYPES SECTION
+// DO NOT USE TYPESCRIPT
 
-| name       | type        | format | required |
-|------------|-------------|--------|----------|
-| id         | int8        | number | true     |
-| created_at | timestamptz | string | true     |
-| key        | text        | string | true     |
-| value      | jsonb       | object | false    |
-| project_id | text        | string | true     |
+### foos
 
+| name    | type | format | required |
+|---------|------|--------|----------|
+| id      | int8 | number | true     |
+| title   | text | string | true     |
+| date    | date | string | true     |
+
+### bars
+
+| name    | type | format | required |
+|---------|------|--------|----------|
+| id      | int8 | number | true     |
+| foo_id  | int8 | number | true     |  // foreign key to foos
+	
 */
 
-// Hooks for objects table
+// Example hook for models
 
-export const useObjects = () => useQuery({
-    queryKey: ['objects'],
-    queryFn: () => fromSupabase(supabase.from('objects').select('*')),
-});
-
-export const useObject = (id) => useQuery({
-    queryKey: ['objects', id],
-    queryFn: () => fromSupabase(supabase.from('objects').select('*').eq('id', id).single()),
-});
-
-export const useAddObject = () => {
+export const useFoo = ()=> useQuery({
+    queryKey: ['foos'],
+    queryFn: fromSupabase(supabase.from('foos')),
+})
+export const useAddFoo = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (newObject) => fromSupabase(supabase.from('objects').insert([newObject])),
-        onSuccess: () => {
-            queryClient.invalidateQueries('objects');
+        mutationFn: (newFoo)=> fromSupabase(supabase.from('foos').insert([{ title: newFoo.title }])),
+        onSuccess: ()=> {
+            queryClient.invalidateQueries('foos');
         },
     });
 };
 
-export const useUpdateObject = () => {
+export const useBar = ()=> useQuery({
+    queryKey: ['bars'],
+    queryFn: fromSupabase(supabase.from('bars')),
+})
+export const useAddBar = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (updatedObject) => fromSupabase(supabase.from('objects').update(updatedObject).eq('id', updatedObject.id)),
-        onSuccess: () => {
-            queryClient.invalidateQueries('objects');
+        mutationFn: (newBar)=> fromSupabase(supabase.from('bars').insert([{ foo_id: newBar.foo_id }])),
+        onSuccess: ()=> {
+            queryClient.invalidateQueries('bars');
         },
     });
 };
 
-export const useDeleteObject = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: (id) => fromSupabase(supabase.from('objects').delete().eq('id', id)),
-        onSuccess: () => {
-            queryClient.invalidateQueries('objects');
-        },
-    });
-};
