@@ -2,8 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import store from './store';
 import PromptSubmission from './components/PromptSubmission';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from '@/components/ui/grid';
+import { Heading, Text } from '@/components/ui/typography';
 import HowToUse from './components/HowToUse';
 import RealTimeUpdates from './components/RealTimeUpdates';
 
@@ -13,8 +13,8 @@ function App() {
       <Container className="App">
         <Row>
           <Col>
-            <h1>Welcome to the GPT Engineer Application</h1>
-            <p>Submit your prompts and get real-time updates on the results.</p>
+            <Heading>Welcome to the GPT Engineer Application</Heading>
+            <Text>Submit your prompts and get real-time updates on the results.</Text>
           </Col>
         </Row>
         <Row>
