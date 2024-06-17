@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 function PromptSubmission() {
   const [prompt, setPrompt] = useState('');
@@ -14,10 +17,20 @@ function PromptSubmission() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={prompt} onChange={(e) => setPrompt(e.target.value)} />
-      <button type="submit">Submit</button>
-    </form>
+    <Card>
+      <CardHeader>
+        <CardTitle>Submit Your Prompt</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit}>
+          <Input type="text" value={prompt} onChange={(e) => setPrompt(e.target.value)} />
+          <Button type="submit">Submit</Button>
+        </form>
+      </CardContent>
+      <CardFooter>
+        <p>Enter your prompt and click submit to get a response.</p>
+      </CardFooter>
+    </Card>
   );
 }
 
