@@ -11,3 +11,7 @@ export const runTask = async (taskData) => {
     const response = await axios.post(`${API_URL}/run-task`, taskData);
     return response.data;
 };
+
+export const streamUpdates = () => {
+    return new EventSource(`${API_URL}/stream-updates`);
+};
