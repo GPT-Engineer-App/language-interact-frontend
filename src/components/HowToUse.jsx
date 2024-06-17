@@ -12,7 +12,7 @@ const HowToUse = () => {
             <li>Click the "Submit" button to send your prompt.</li>
             <li>Wait for the real-time updates to see the results.</li>
           </ol>
-        </Card.Text>
+        </CardText>
       </CardBody>
     </Card>
   );
